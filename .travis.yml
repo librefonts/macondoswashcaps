@@ -5,15 +5,17 @@ before_install:
 - sudo apt-get install python-fontforge
 - cp /usr/lib/python2.7/dist-packages/fontforge.* "$HOME/virtualenv/python2.7.8/lib/python2.7/site-packages"
 install:
-# - export LD_LIBRARY_PATH=/usr/local/lib
 - pip install git+https://github.com/behdad/fontTools.git
 - pip install git+https://github.com/googlefonts/fontbakery-cli.git
 - pip install jinja2
 script: PATH=/home/travis/virtualenv/python2.7.8/bin/:$PATH fontbakery.py .
 branches:
   only:
-    - master
+  - master
 after_script:
 - rm -rf builds/build/sources builds/build/build.state.yaml
 - PATH=/home/travis/virtualenv/python2.7.8/bin/:$PATH bakery-report.py builds/build
 - PATH=/home/travis/virtualenv/python2.7.8/bin/:$PATH travis-deploy.py
+env:
+  global:
+    secure: M+ZEL77BTD5/yN/uDy0mXm/C9HBWHJMHCJ+SXA43DWD8EpJ9ycN6T5pDhgcvudOStp8G9JxXp4Q1jlvXyBbm0oM5Yb3Oh/obSLXucHMXfMuJD9mF3IfBNHriTk7NwcBK2o5TlFIMwW3jE/2QSDLXniNGWy632LfZpcHJ30mhIic=
